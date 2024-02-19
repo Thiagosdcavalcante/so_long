@@ -1,0 +1,7 @@
+/nfs/homes/tsantana/so_long/libs/mlx42/CMakeFiles/install/strip.dir
+/nfs/homes/tsantana/so_long/libs/mlx42/CMakeFiles/install.dir
+/nfs/homes/tsantana/so_long/libs/mlx42/CMakeFiles/list_install_components.dir
+/nfs/homes/tsantana/so_long/libs/mlx42/CMakeFiles/rebuild_cache.dir
+/nfs/homes/tsantana/so_long/libs/mlx42/CMakeFiles/edit_cache.dir
+/nfs/homes/tsantana/so_long/libs/mlx42/CMakeFiles/install/local.dir
+/nfs/homes/tsantana/so_long/libs/mlx42/CMakeFiles/mlx42.dir
