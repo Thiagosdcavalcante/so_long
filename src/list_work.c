@@ -6,20 +6,21 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:32:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/19 18:45:02 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:44:56 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "elements.h"
 
-t_list	*ft_lstnew(char content, int position)
+t_list	*ft_lstnew(char content, int line, int column)
 {
 	t_list	*node;
 
 	node = malloc(sizeof(t_list));
 	if (node == NULL)
 		return (NULL);
-	node->position = position;
+	node->column =  column;
+	node->line =  line;
 	node->content = content;
 	node->next = NULL;
 	return (node);
@@ -48,12 +49,13 @@ void	ft_lstclear(t_list **lst)
 
 	if (!lst || !(*lst))
 		return ;
-	tmp = *lst;
+	tmp = NULL;
 	while (tmp)
 	{
+		tmp = *lst;
 		*lst = (*lst)->next;
 		free(tmp);
-		tmp = *lst;
 	}
+	free(*lst);
 }
 

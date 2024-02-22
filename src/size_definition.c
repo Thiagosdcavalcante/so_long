@@ -6,16 +6,17 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:19:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/19 11:46:09 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:47:34 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "size_definition.h"
+#include <stdio.h>
 
-void	tile_def(t_sizes *sizes)
+int	tile_def(int x, int y)
 {
-	if ((WIDTH / sizes->x) < (HEIGHT / sizes->y))
-		sizes->tile = WIDTH / sizes->x;
+	if ((WIDTH / x) < (HEIGHT / y))
+		return (WIDTH / x);
 	else
-		sizes->tile = HEIGHT / sizes->y;
+		return (HEIGHT / y);
 }

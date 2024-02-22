@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:18:12 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/05 16:16:22 by tsantana         ###   ########.org.br   */
+/*   Updated: 2024/02/22 19:49:01 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 
 typedef struct	s_sizes
 {
+	int	qnt_f;
+	int	qnt_p;
+	int	qnt_e;
 	int	x;
 	int	y;
 	int	tile;
 }	t_sizes;
 
-void	tile_def(t_sizes *sizes);
+int	tile_def(int x, int y);
 
 #endif
