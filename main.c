@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 16:58:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/22 19:36:26 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:28:52 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		game.connect_mlx = mlx_init(1920, 1080, "Minha Primeira tela", true);
 		if (!game.connect_mlx)
 			return (1);
-		ft_game(&game);
+		ft_game(&game, argv[1]);
 		mlx_key_hook(game.connect_mlx, &control_hooks, &game);
 		mlx_loop(game.connect_mlx);
 		mlx_terminate(game.connect_mlx);

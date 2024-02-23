@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:43:41 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/22 20:05:08 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/23 20:01:51 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,80 @@
 // 	return (0);
 // }
 
-void	ft_game(t_game *game)
+static t_list	*file_to_list(char *buf, t_sizes *size)
+{
+	static t_list	*map;
+	int	i;
+	int	j;
+
+	j = 0;
+	while(*buf)
+	{
+		i = 0;
+		while(*buf != '\n')
+		{
+			if (item_check(*buf, i, j, size) == 0)
+			{
+				if (j == 0 && *buf != '\n')
+					size->x += 1;
+				ft_lstadd_back(&map, ft_lstnew(*buf, j, i));
+				i++;
+				buf++;
+			}
+			else
+				return (ft_lstclear(&map), *(&map));
+		}
+		if (*buf == '\n')
+			buf++;
+		j++;
+	}
+	size->y = j;
+	size->tile = tile_def(size->x, size->y);
+	if (size->qnt_p != 1 || size->qnt_f < 1 || size->qnt_e != 1)
+		return (ft_lstclear(&map), *(&map));
+	return *(&map);
+}
+
+// void	print_list(t_list **print)
+// {
+// 	t_list	*temp;
+//
+// 	temp = *print;
+// 	while(temp)
+// 	{
+// 		printf("column: %d // Line: %d // Content: %c\n", temp->column, temp->line, temp->content);
+// 		temp = temp->next;
+// 	}
+// }
+
+int	read_map(char *file, t_game *inf)
+{
+	static char	buf[BUFFERSIZE];
+	size_t	fd;
+	size_t	bytes_read;
+	
+	fd = 0;
+	bytes_read = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 1)
+		return (write (2, "Error!\nSomething Wrong with File!", 33), 1);
+	bytes_read = read(fd, buf, BUFFERSIZE);
+	if (bytes_read < 15)
+		return (write (2, "Error!\nNot Enough Infor in the file!", 36), 1);
+	inf->map = file_to_list(buf, &inf->sizes);
+	close(fd);
+	return (0);
+}
+
+void	ft_game(t_game *game, char *file)
 {
 	init_data(game);
-	//if (parse_map(file, game) == 1)
- 	//	return (write(2, "Error\nParse Map!", 16), 1);
-	bg_init(game->connect_mlx, &game->background);
-	objects_start(*game->connect_mlx, &game->items);
-	print_wall(game->connect_mlx, game->map, game->sizes.tile, game->items);
-	// objects_start(*game->connect_mlx, &game->elemnts.items);
-	// put_wall(*game->connect_mlx, &game->elemnts.items.wall,
-	// 	&game->elemnts.sizes, game->elemnts.data.map);
+	if (read_map(file, game) == 0)
+	{
+		bg_init(game->connect_mlx, &game->background);
+		objects_start(*game->connect_mlx, &game->items);
+		print_objcts(game);
+	}
+	else 
+		return ;
 }

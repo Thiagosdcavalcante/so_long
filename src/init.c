@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:23:51 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/22 20:10:29 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:43:28 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@ static t_sizes	*sizes_init(void)
 	return(&variables);
 }
 
-static t_list	*list_init(void)
-{
-	static t_list	list;
-
-	return (&list);
-}
-
 static t_player	*p_init(void)
 {
 	static t_player	p;
@@ -36,7 +29,6 @@ static t_player	*p_init(void)
 void	init_data(t_game *data)
 {
 	data->sizes = *sizes_init();
-	data->map = list_init();
 	data->plr = *p_init();
 }
 

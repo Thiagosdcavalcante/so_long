@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:56:15 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/22 20:05:30 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/23 20:13:50 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,24 @@
 # define ELEMENTS_H
 
 # include "MLX42/MLX42.h"
-# include "size_definition.h"
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # define BUFFERSIZE 88500
-# define MAP_ITEMS "10PCE"
+# define START 170
+# define WIDTH 1750
+# define HEIGHT 800
+
+typedef struct	s_sizes
+{
+	int	qnt_f;
+	int	qnt_p;
+	int	qnt_e;
+	int	x;
+	int	y;
+	int	tile;
+}	t_sizes;
 
 typedef struct	s_image
 {
@@ -84,5 +95,8 @@ void	obj_calculator(char value, t_sizes *count);
 
 void	free_game(t_game *to_free);
 void	print_wall(mlx_t *win, t_list *node, int tile, t_items item);
+int	check_char(char c);
+int	item_check(char ch, int c, int l, t_sizes *size);
+int	tile_def(int x, int y);
 
 #endif

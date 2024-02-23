@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 10:44:58 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/22 19:46:33 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/23 20:18:47 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,4 @@ void	obj_calculator(char value, t_sizes *count)
 	else if (value == 'E')
 		count->qnt_e += 1;
 }
+

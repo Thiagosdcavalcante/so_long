@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:11:19 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/22 19:37:59 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/23 20:01:53 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,35 +44,23 @@ int	args_verify(int c, char *v)
 	}
 }
 
-// int	items_checker(char map_char, int fish, int player, int exit)
-// {
-// 	int	*collectible;
-// 	int	*p_count;
-// 	int	*e_count;
-// 	int	i;
-//
-// 	collectible = fish;
-// 	p_count = player;
-// 	e_count = exit;
-// 	i = 0;
-// 	while (MAP_ITEMS[i] != '\0')
-// 	{
-// 		if (MAP_ITEMS[i] == map_char)
-// 		{
-// 			if (map_char == 'C' || map_char == 'P' || map_char == 'E')
-// 			{
-// 				if (map_char == 'C')
-// 					collectible += 1;
-// 				else if (map_char == 'P')
-// 					p_count += 1;
-// 				else if (map_char == 'E')
-// 					e_count += 1;
-// 			}
-// 			if (*p_count > 1 || *e_count > 1)
-// 				return (write (2, "Error!\nIvalid Map - More than 1 E or P", 38), 1);
-// 			return (0);
-// 		}
-// 		i++;
-// 	}
-// 	return (1);
-// }
+int	check_char(char c)
+{
+	return (c == '1' || c == '0' || c == 'C' || c == 'E' || c == 'P');
+}
+
+int	item_check(char ch, int c, int l, t_sizes *size)
+{
+	if (check_char(ch) != 1)
+		return (1);
+	if (c == 0 && ch != '1')
+		return (1);
+	else if (l == 0 && ch != '1')
+		return (1);
+	else if (l == size->y && ch != '1')
+		return (1);
+	else if (c == size->x && ch != '1')
+		return (1);
+	else
+		return (obj_calculator(ch, size), 0);
+}

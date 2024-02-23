@@ -6,12 +6,11 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:19:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/02/22 19:47:34 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:35:16 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "size_definition.h"
-#include <stdio.h>
+#include "elements.h"
 
 int	tile_def(int x, int y)
 {
