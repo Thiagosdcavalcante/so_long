@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_checker.c                                      :+:      :+:    :+:   */
+/*   map_checker_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 14:11:19 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/16 21:53:29 by tsantana         ###   ########.fr       */
+/*   Created: 2024/03/16 21:51:30 by tsantana          #+#    #+#             */
+/*   Updated: 2024/03/20 20:19:35 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "elements.h"
+#include "bonus.h"
 
 static int	dotber_checker(char *arch_name)
 {
@@ -46,7 +46,7 @@ int	args_verify(int c, char *v)
 
 int	check_char(char c)
 {
-	if (c == '1' || c == '0' || c == 'C' || c == 'P' || c == 'E')
+	if (c == '1' || c == '0' || c == 'C' || c == 'P' || c == 'E' || c == 'V')
 		return (1);
 	return (write(2, "Error!\nMap has wrong elements!", 30), 0);
 }

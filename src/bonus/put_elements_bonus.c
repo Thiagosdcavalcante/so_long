@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_elements.c                                     :+:      :+:    :+:   */
+/*   put_elements_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 16:08:30 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 17:06:01 by tsantana         ###   ########.fr       */
+/*   Created: 2024/03/20 17:05:19 by tsantana          #+#    #+#             */
+/*   Updated: 2024/03/20 21:46:34 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "bonus.h"
 
 void	render_game(void *game)
 {
@@ -21,13 +21,17 @@ void	render_game(void *game)
 	lst = gm->cllct;
 	while (lst)
 	{
-		mlx_image_to_window(gm->connect_mlx, gm->items.collectible.img,
-			(lst->column * gm->sizes.tile), (lst->line * gm->sizes.tile));
+		if (lst->content == 'C')
+			mlx_image_to_window(gm->connect_mlx, gm->items.collectible.img,
+				(lst->column * gm->sizes.tile), (lst->line * gm->sizes.tile));
+		else if (lst->content == 'V')
+			mlx_image_to_window(gm->connect_mlx, gm->items.villain.below.img,
+					(lst->column * gm->sizes.tile), (lst->line * gm->sizes.tile));
 		lst = lst->next;
 	}
-	mlx_image_to_window(gm->connect_mlx, gm->items.player.img,
-		(gm->plr.p->column * gm->sizes.tile),
-		(gm->plr.p->line * gm->sizes.tile));
+	// mlx_image_to_window(gm->connect_mlx, gm->items.player.img,
+	// 	(gm->plr.p->column * gm->sizes.tile),
+	// 	(gm->plr.p->line * gm->sizes.tile));
 }
 
 void	print_wall_exit(mlx_t *win, int tile, t_items *item, t_list *node)

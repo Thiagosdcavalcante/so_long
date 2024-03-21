@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects.c                                          :+:      :+:    :+:   */
+/*   objects_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 10:44:58 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/18 17:36:06 by tsantana         ###   ########.fr       */
+/*   Created: 2024/03/18 17:35:05 by tsantana          #+#    #+#             */
+/*   Updated: 2024/03/20 21:47:11 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42/MLX42.h"
-#include "elements.h"
-#include "so_long.h"
+#include "bonus.h"
 
 static void	ft_putchar(char put)
 {
@@ -39,7 +37,7 @@ void	objects_start(mlx_t *window_open, t_items *map_obj, t_sizes szs)
 {
 	map_obj->background.texture = mlx_load_png("assets/grass.png");
 	map_obj->wall.texture = mlx_load_png("assets/wall.png");
-	map_obj->player.texture = mlx_load_png("assets/pigfront00.png");
+	map_obj->baseboard.texture = mlx_load_png("assets/baseboard.png");
 	map_obj->collectible.texture = mlx_load_png("assets/planks.png");
 	map_obj->exit.texture = mlx_load_png("assets/exit.png");
 	map_obj->background.img = mlx_texture_to_image
@@ -50,14 +48,15 @@ void	objects_start(mlx_t *window_open, t_items *map_obj, t_sizes szs)
 			map_obj->exit.texture);
 	map_obj->collectible.img = mlx_texture_to_image(window_open,
 			map_obj->collectible.texture);
-	map_obj->player.img = mlx_texture_to_image(window_open,
-			map_obj->player.texture);
-	mlx_resize_image(map_obj->player.img, szs.tile, szs.tile);
+	map_obj->baseboard.img = mlx_texture_to_image(window_open,
+			map_obj->baseboard.texture);
+	mlx_resize_image(map_obj->baseboard.img, 1920, 80);
 	mlx_resize_image(map_obj->collectible.img, szs.tile, szs.tile);
 	mlx_resize_image(map_obj->wall.img, szs.tile, szs.tile);
 	mlx_resize_image(map_obj->exit.img, szs.tile, szs.tile);
 	mlx_resize_image(map_obj->background.img, 1920, 1080);
 	mlx_image_to_window(window_open, map_obj->background.img, 0, 0);
+	mlx_image_to_window(window_open, map_obj->baseboard.img, 0, 1000);
 }
 
 void	obj_calculator(char value, t_sizes **count)
@@ -68,6 +67,8 @@ void	obj_calculator(char value, t_sizes **count)
 		(*count)->qnt_p += 1;
 	else if (value == 'E')
 		(*count)->qnt_e += 1;
+	else if (value == 'V')
+		(*count)->qnt_v += 1;
 }
 
 int	start_items(t_game *gm)

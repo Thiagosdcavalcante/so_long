@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_work.c                                        :+:      :+:    :+:   */
+/*   cllct_work.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 17:32:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/16 21:58:59 by tsantana         ###   ########.fr       */
+/*   Created: 2024/03/09 18:53:40 by tsantana          #+#    #+#             */
+/*   Updated: 2024/03/16 21:57:26 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "elements.h"
 
-t_list	*ft_lstnew(char content, int line, int column)
+t_cllct	*ft_cllctnew(char content, int line, int column)
 {
-	t_list	*node;
+	t_cllct	*node;
 
-	node = malloc(sizeof(t_list));
+	node = malloc(sizeof(t_cllct));
 	if (node == NULL)
 		return (NULL);
+	node->active = 1;
 	node->column = column;
 	node->line = line;
 	node->content = content;
@@ -26,9 +27,9 @@ t_list	*ft_lstnew(char content, int line, int column)
 	return (node);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_cllctadd_back(t_cllct **lst, t_cllct *new)
 {
-	t_list	*temp;
+	t_cllct	*temp;
 
 	if (!new)
 		return ;
@@ -43,9 +44,9 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	temp -> next = new;
 }
 
-void	ft_lstclear(t_list **lst)
+void	ft_cllctclear(t_cllct **lst)
 {
-	t_list	*tmp;
+	t_cllct	*tmp;
 
 	if (!lst || !(*lst))
 		return ;

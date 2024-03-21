@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /nfs/homes/tsantana/so_long/libs/mlx42
+CMAKE_SOURCE_DIR = /nfs/homes/tsantana/so_long_entrega/libs/mlx42
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /nfs/homes/tsantana/so_long/libs/mlx42
+CMAKE_BINARY_DIR = /nfs/homes/tsantana/so_long_entrega/libs/mlx42
 
 #=============================================================================
 # Targets provided globally by CMake.

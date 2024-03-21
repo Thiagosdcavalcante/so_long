@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   size_definition.c                                  :+:      :+:    :+:   */
+/*   size_definition_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 14:19:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 17:19:08 by tsantana         ###   ########.fr       */
+/*   Created: 2024/03/20 17:11:11 by tsantana          #+#    #+#             */
+/*   Updated: 2024/03/20 20:20:20 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "elements.h"
+#include "bonus.h"
 
 static int	tile_def(int x, int y)
 {
@@ -50,7 +50,7 @@ static int	item_check(char *buf, t_sizes *szs)
 		obj_calculator(buf[i_buf], &szs);
 		i_buf++;
 	}
-	if (szs->qnt_p != 1 || szs->qnt_f < 1 || szs->qnt_e != 1)
+	if (szs->qnt_p != 1 || szs->qnt_f < 1 || szs->qnt_e != 1 || szs->qnt_v < 1)
 		return (write(2, "Error!\nWrong qnt of items in the map!\n", 38), 0);
 	return (1);
 }

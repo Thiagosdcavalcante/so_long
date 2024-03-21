@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 16:43:41 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 20:12:50 by tsantana         ###   ########.fr       */
+/*   Created: 2024/03/20 17:14:51 by tsantana          #+#    #+#             */
+/*   Updated: 2024/03/20 20:13:10 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "elements.h"
+#include "bonus.h"
 
 static void	control_hooks(mlx_key_data_t keydata, void *param)
 {
@@ -48,7 +47,7 @@ void	file_to_cllct(char *bffr, t_cllct **collect)
 	{
 		while (bffr[index] != '\0' && bffr[index] != '\n')
 		{
-			if (bffr[index] == 'C')
+			if (bffr[index] == 'C' || bffr[index] == 'V')
 			{
 				temp = ft_cllctnew(bffr[index], line, column);
 				ft_cllctadd_back(collect, temp);
@@ -113,7 +112,7 @@ int	ft_game(t_game *game, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 1)
 		return (write (2, "Error!\nSomething Wrong with File!\n", 34), 0);
-	if (read_map(fd, buf) == 0)
+	if (read_map(fd, buf) == 1)
 		return (0);
 	close(fd);
 	if (validations_lines(game, buf) == 1)

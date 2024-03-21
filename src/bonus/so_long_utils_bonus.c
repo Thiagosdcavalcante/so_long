@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 16:43:41 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 20:12:50 by tsantana         ###   ########.fr       */
+/*   Created: 2024/03/20 17:17:39 by tsantana          #+#    #+#             */
+/*   Updated: 2024/03/20 21:46:30 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "elements.h"
+#include "bonus.h"
 
 static void	control_hooks(mlx_key_data_t keydata, void *param)
 {
@@ -101,7 +100,7 @@ int	read_map(int fd, char *buf)
 	if (bytes_read < 15 || bytes_read > 6914)
 		return (write (2, "Error!\nMap Is Too Small or Too Big to Render!\n",
 				46), 0);
-	return (1);
+	return (0);
 }
 
 int	ft_game(t_game *game, char *file)
@@ -113,7 +112,7 @@ int	ft_game(t_game *game, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 1)
 		return (write (2, "Error!\nSomething Wrong with File!\n", 34), 0);
-	if (read_map(fd, buf) == 0)
+	if (read_map(fd, buf) == 1)
 		return (0);
 	close(fd);
 	if (validations_lines(game, buf) == 1)

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 18:49:26 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/16 18:53:26 by tsantana         ###   ########.fr       */
+/*   Created: 2024/03/18 17:39:06 by tsantana          #+#    #+#             */
+/*   Updated: 2024/03/20 21:46:54 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "elements.h"
+#include "bonus.h"
 
 void	free_bg_imgs(t_items *img)
 {
 	if (img->background.texture)
 		mlx_delete_texture(img->background.texture);
+	if (img->baseboard.texture)
+		mlx_delete_texture(img->baseboard.texture);
 	if (img->wall.texture)
 		mlx_delete_texture(img->wall.texture);
-	if (img->player.texture)
-		mlx_delete_texture(img->player.texture);
 	if (img->collectible.texture)
 		mlx_delete_texture(img->collectible.texture);
 	if (img->exit.texture)
