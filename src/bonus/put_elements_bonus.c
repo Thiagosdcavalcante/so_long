@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:05:19 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 21:46:34 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:44:44 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@ void	render_game(void *game)
 		if (lst->content == 'C')
 			mlx_image_to_window(gm->connect_mlx, gm->items.collectible.img,
 				(lst->column * gm->sizes.tile), (lst->line * gm->sizes.tile));
-		else if (lst->content == 'V')
-			mlx_image_to_window(gm->connect_mlx, gm->items.villain.below.img,
-					(lst->column * gm->sizes.tile), (lst->line * gm->sizes.tile));
 		lst = lst->next;
 	}
-	// mlx_image_to_window(gm->connect_mlx, gm->items.player.img,
-	// 	(gm->plr.p->column * gm->sizes.tile),
-	// 	(gm->plr.p->line * gm->sizes.tile));
+	mlx_image_to_window(gm->connect_mlx, gm->items.player.img,
+		(gm->plr.p->column * gm->sizes.tile),
+		(gm->plr.p->line * gm->sizes.tile));
 }
 
 void	print_wall_exit(mlx_t *win, int tile, t_items *item, t_list *node)
@@ -46,6 +43,9 @@ void	print_wall_exit(mlx_t *win, int tile, t_items *item, t_list *node)
 				(map->column * tile), (map->line * tile));
 		if (map->content == 'E')
 			mlx_image_to_window(win, item->exit.img,
+				(map->column * tile), (map->line * tile));
+		if (map->content == 'V')
+			mlx_image_to_window(win, item->villain.below.img,
 				(map->column * tile), (map->line * tile));
 		map = map->next;
 	}

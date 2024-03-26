@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:11:11 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 20:20:20 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:21:52 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	tile_def(int x, int y)
 	int	height;
 	int	width;
 
-	height = 1060;
+	height = 980;
 	width = 1920;
 	if ((width / x) < (height / y))
 		return (width / x);

@@ -6,14 +6,15 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 17:04:07 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 17:19:03 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:13:48 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
 #include "elements.h"
+#include "so_long.h"
 
-static void	reload_render(t_game *gm)
+void	reload_render(t_game *gm)
 {
 	t_cllct	*collect;
 
@@ -34,11 +35,12 @@ static void	reload_render(t_game *gm)
 				gm->sizes.tile * collect->line);
 		collect = collect -> next;
 	}
-	mlx_image_to_window(gm->connect_mlx, gm->items.player.img, (gm->sizes.tile
-			* gm->plr.p->column), (gm->sizes.tile * gm->plr.p->line));
+	mlx_image_to_window(gm->connect_mlx, gm->items.player.img,
+		(gm->sizes.tile * gm->plr.p->column), gm->sizes.tile
+		* gm->plr.p->line);
 }
 
-static void	def_p_around(int i, int j, t_list *mp_p, t_player *plr)
+void	def_p_around(int i, int j, t_list *mp_p, t_player *plr)
 {
 	t_list	*map;
 
@@ -74,7 +76,7 @@ void	make_player(t_list *mp_to_p, t_player *plr)
 	def_p_around(plr->p->line, plr->p->column, mp_to_p, plr);
 }
 
-static void	cllct_work(t_cllct **cllct, int ln, int cl)
+void	cllct_work(t_cllct **cllct, int ln, int cl)
 {
 	t_cllct	*coll;
 
@@ -93,24 +95,25 @@ void	plr_remake(t_game *gm, char move)
 
 	map = gm->map;
 	if (move == 'w' && gm->plr.w->content != '1')
+	{
+		print_moves(&gm->sizes);
 		gm->plr.p = gm->plr.w;
+	}
 	else if (move == 's' && gm->plr.s->content != '1')
+	{
+		print_moves(&gm->sizes);
 		gm->plr.p = gm->plr.s;
+	}
 	else if (move == 'd' && gm->plr.d->content != '1')
+	{
+		print_moves(&gm->sizes);
 		gm->plr.p = gm->plr.d;
+	}
 	else if (move == 'a' && gm->plr.a->content != '1')
+	{
+		print_moves(&gm->sizes);
 		gm->plr.p = gm->plr.a;
-	def_p_around(gm->plr.p->line, gm->plr.p->column, map, &gm->plr);
-	reload_render(gm);
-	if (gm->plr.p->content == 'C')
-	{
-		gm->sizes.collect--;
-		gm->plr.p->content = '0';
-		cllct_work(&gm->cllct, gm->plr.p->line, gm->plr.p->column);
 	}
-	if (gm->plr.p->content == 'E' && gm->sizes.collect == 0)
-	{
+	if (plr_exit(gm) == 0)
 		mlx_close_window(gm->connect_mlx);
-		return ;
-	}
 }

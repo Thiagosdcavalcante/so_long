@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 16:58:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 17:55:19 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:41:35 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	main(int argc, char **argv)
 			ft_game(&game, argv[1]);
 		}
 		else
-			return ((write(2, "Error!\nSomething Wrong With the Window(mlz)!",
+			return ((write(2, "Error\nSomething Wrong With the Window(mlz)!\n",
 						44)), 0);
 	}
 	else
-		return (write(2, "Error!\nMust to pass two args\n!", 29), 1);
+		return (write(2, "Error\nMust to pass two args!\n", 29), 1);
 	mlx_terminate(game.connect_mlx);
 	free_game(&game);
 	return (0);

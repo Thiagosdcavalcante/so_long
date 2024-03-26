@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:42:05 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 21:46:43 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:58:27 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,6 @@
 # include <fcntl.h>
 # include <unistd.h>
 # define BUFFERSIZE 6915
-# define WIDTH 1920
-# define HEIGHT 1050
-# define PTOP01 "assets/pigtop01.png"
-# define PTOP02 "assets/pigtop02.png"
-# define PTOP03 "assets/pigtop03.png"
-# define PTOP04 "assets/pigtop04.png"
-# define PTOP05 "assets/pigtop05.png"
-# define PB01 "assets/pigb01.png"
-# define PB02 "assets/pigb02.png"
-# define PB03 "assets/pigb03.png"
-# define PB04 "assets/pigb04.png"
-# define PB05 "assets/pigb05.png"
-# define PLEFT01 "assets/pigleft01.png"
-# define PLEFT02 "assets/pigleft02.png"
-# define PLEFT03 "assets/pigleft03.png"
-# define PLEFT04 "assets/pigleft04.png"
-# define PLEFT05 "assets/pigleft05.png"
-# define PRIGHT01 "assets/pigright01.png"
-# define PRIGHT02 "assets/pigright02.png"
-# define PRIGHT03 "assets/pigright03.png"
-# define PRIGHT04 "assets/pigright04.png"
-# define PRIGHT05 "assets/pigright05.png"
 
 typedef struct s_sizes
 {
@@ -77,35 +55,18 @@ typedef struct s_cllct
 	struct s_cllct	*next;
 }	t_cllct;
 
-typedef struct s_sprites
-{
-	t_image				img;
-	struct s_sprites	*next;
-	struct s_sprites	*previous;
-}	t_sprites;
-
-typedef struct s_imgplr
-{
-	t_sprites	*top;
-	t_sprites	*below;
-	t_sprites	*right;
-	t_sprites	*left;
-}	t_imgplr;
-
 typedef struct s_villain
 {
-	t_image	top;
-	t_image	right;
-	t_image	left;
 	t_image	below;
 }	t_villain;
 
 typedef struct s_items
 {
+	mlx_image_t	*counter;
 	t_image		background;
 	t_image		baseboard;
 	t_villain	villain;
-	t_imgplr	player;
+	t_image		player;
 	t_image		exit;
 	t_image		collectible;
 	t_image		wall;
@@ -113,6 +74,7 @@ typedef struct s_items
 
 typedef struct s_player
 {
+	char	key;
 	t_list	*p;
 	t_list	*w;
 	t_list	*s;
@@ -142,6 +104,10 @@ int		read_map(int fd, char *buf);
 int		flood_fill(t_list *plr, t_list *map);
 int		start_items(t_game *gm);
 int		validations_lines(t_game *gm, char *bfr);
+int		plr_exit(t_game *gm);
+int		file_list(char *bffr, t_list **map);
+int		plr_exit(t_game *gm);
+void	file_to_cllct(char *bffr, t_cllct **collect);
 void	ft_lstclear(t_list **lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_cllctadd_back(t_cllct **lst, t_cllct *new);
@@ -160,5 +126,14 @@ void	render_game(void *game);
 void	ft_putnumb(int n);
 void	init_villain(mlx_t *window, t_sizes szs, t_items *obj);
 void	init_sprite(mlx_t *wind, t_sizes szs, t_items *obj);
+void	plr_cllct(t_player *p, t_sizes *szs, t_cllct *cllct);
+void	def_p_around(int i, int j, t_list *mp_p, t_player *plr);
+void	reload_render(t_game *gm);
+void	print_moves(mlx_t *mlx, t_sizes *infor, mlx_image_t **counter);
+void	plr_cllct(t_player *p, t_sizes *szs, t_cllct *cllct);
+void	cllct_work(t_cllct **cllct, int ln, int cl);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_itoa(int n);
+void	render_player(void *param);
 
 #endif

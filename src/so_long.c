@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:43:41 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 20:12:50 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/23 19:07:28 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ static void	control_hooks(mlx_key_data_t keydata, void *param)
 		plr_remake(infor, 's');
 	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(infor->connect_mlx);
-	infor->sizes.moves += 1;
-	write(1, "moves: ", 7);
-	ft_putnumb(infor->sizes.moves);
-	write(1, "\n", 1);
 }
 
 void	file_to_cllct(char *bffr, t_cllct **collect)
@@ -99,8 +95,11 @@ int	read_map(int fd, char *buf)
 	bytes_read = read(fd, buf, BUFFERSIZE);
 	buf[bytes_read + 1] = '\0';
 	if (bytes_read < 15 || bytes_read > 6914)
-		return (write (2, "Error!\nMap Is Too Small or Too Big to Render!\n",
+	{
+		close(fd);
+		return (write (2, "Error\nMap Is Too Small or Too Big to Render!\n",
 				46), 0);
+	}
 	return (1);
 }
 
@@ -112,7 +111,7 @@ int	ft_game(t_game *game, char *file)
 	fd = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 1)
-		return (write (2, "Error!\nSomething Wrong with File!\n", 34), 0);
+		return (write (2, "Error\nSomething Wrong with File!\n", 34), 0);
 	if (read_map(fd, buf) == 0)
 		return (0);
 	close(fd);

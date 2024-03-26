@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 22:12:55 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/18 16:06:52 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/21 21:11:00 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	flood_fill(t_list *plr, t_list *map)
 	{
 		if (!((map->content == 'Z' || map->content == '1')
 				|| map->content == '0'))
-			return (write(2, "Error!\nImpossible to Win!\n", 26), 0);
+			return (write(2, "Error\nImpossible to Win!\n", 26), 0);
 		map = map->next;
 	}
 	return (1);

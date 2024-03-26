@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:51:30 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 20:19:35 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/21 22:57:36 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static int	dotber_checker(char *arch_name)
 int	args_verify(int c, char *v)
 {
 	if (c < 2)
-		return (write(2, "Error\nNot Enough Args!", 23), 0);
+		return (write(2, "Error\nNot Enough Argso!\n", 24), 0);
 	else if (c > 2)
-		return (write(2, "Error!\nToo Many Args!", 21), 0);
+		return (write(2, "Error\nToo Many Args!\n", 21), 0);
 	else
 	{
 		if (dotber_checker(v) != 0)
-			return (write(2, "Error\nNot a .ber file!", 22), 0);
+			return (write(2, "Error\nNot a .ber file!\n", 23), 0);
 		else
 			return (1);
 	}
@@ -48,7 +48,7 @@ int	check_char(char c)
 {
 	if (c == '1' || c == '0' || c == 'C' || c == 'P' || c == 'E' || c == 'V')
 		return (1);
-	return (write(2, "Error!\nMap has wrong elements!", 30), 0);
+	return (write(2, "Error\nMap has wrong elements!\n", 30), 0);
 }
 
 int	wall_check(char ch, int c, int l, t_sizes *size)

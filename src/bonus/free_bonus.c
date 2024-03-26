@@ -6,10 +6,11 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:39:06 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 21:46:54 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:33:59 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
 #include "bonus.h"
 
 void	free_bg_imgs(t_items *img)
@@ -35,4 +36,8 @@ void	free_game(t_game *to_free)
 		ft_lstclear(&to_free->map);
 	if (to_free->check)
 		ft_lstclear(&to_free->check);
+	if (to_free->items.player.texture)
+		mlx_delete_texture(to_free->items.player.texture);
+	if (to_free->items.villain.below.texture)
+		mlx_delete_texture(to_free->items.villain.below.texture);
 }

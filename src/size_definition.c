@@ -6,7 +6,7 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:19:09 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 17:19:08 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:54:00 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	x_line(char *str, t_sizes *size_obj)
 		if (wall_check(str[counter], counter, 0, size_obj) == 1)
 			counter++;
 		else
-			return (write(2, "Error!\nFind Wrong char in the file\n", 35), 0);
+			return (write(2, "Error\nFind Wrong char in the file!\n", 35), 0);
 	}
 	return (counter);
 }
@@ -51,7 +51,7 @@ static int	item_check(char *buf, t_sizes *szs)
 		i_buf++;
 	}
 	if (szs->qnt_p != 1 || szs->qnt_f < 1 || szs->qnt_e != 1)
-		return (write(2, "Error!\nWrong qnt of items in the map!\n", 38), 0);
+		return (write(2, "Error\nWrong qnt of items in the map!\n", 38), 0);
 	return (1);
 }
 
@@ -70,7 +70,7 @@ int	validations_lines(t_game *gm, char *bfr)
 	while (*bfr++ != '\0')
 	{
 		if (*bfr == '\n' && ((i / nline != gm->sizes.x)))
-			return (write(2, "Error!\nAll Lines Must Be Equal!\n", 32), 0);
+			return (write(2, "Error\nAll Lines Must Be Equal!\n", 32), 0);
 		i++;
 		if (*bfr == '\n')
 			nline++;

@@ -6,127 +6,102 @@
 /*   By: tsantana <tsantana@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:17:39 by tsantana          #+#    #+#             */
-/*   Updated: 2024/03/20 21:46:30 by tsantana         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:45:00 by tsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bonus.h"
 
-static void	control_hooks(mlx_key_data_t keydata, void *param)
+void	reload_render(t_game *gm)
 {
-	t_game	*infor;
+	t_cllct	*collect;
 
-	infor = (t_game *)param;
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		plr_remake(infor, 'a');
-	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		plr_remake(infor, 'w');
-	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		plr_remake(infor, 'd');
-	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		plr_remake(infor, 's');
-	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(infor->connect_mlx);
-	infor->sizes.moves += 1;
-	write(1, "moves: ", 7);
-	ft_putnumb(infor->sizes.moves);
-	write(1, "\n", 1);
+	collect = gm->cllct;
+	mlx_delete_image(gm->connect_mlx, gm->items.collectible.img);
+	mlx_delete_image(gm->connect_mlx, gm->items.player.img);
+	gm->items.collectible.img = mlx_texture_to_image(gm->connect_mlx,
+			gm->items.collectible.texture);
+	gm->items.player.img = mlx_texture_to_image(gm->connect_mlx,
+			gm->items.player.texture);
+	mlx_resize_image(gm->items.collectible.img, gm->sizes.tile, gm->sizes.tile);
+	mlx_resize_image(gm->items.player.img, gm->sizes.tile, gm->sizes.tile);
+	while (collect)
+	{
+		if (collect->active == 1)
+			mlx_image_to_window(gm->connect_mlx, gm->items.collectible.img,
+				(gm->sizes.tile * collect->column),
+				gm->sizes.tile * collect->line);
+		collect = collect -> next;
+	}
+	mlx_image_to_window(gm->connect_mlx, gm->items.player.img,
+		(gm->sizes.tile * gm->plr.p->column), gm->sizes.tile
+		* gm->plr.p->line);
 }
 
-void	file_to_cllct(char *bffr, t_cllct **collect)
+void	def_p_around(int i, int j, t_list *mp_p, t_player *plr)
 {
-	int		line;
-	int		column;
-	int		index;
-	t_cllct	*temp;
+	t_list	*map;
 
-	index = 0;
-	column = 0;
-	line = 0;
-	while (bffr[index] != '\0')
+	map = mp_p;
+	while (map)
 	{
-		while (bffr[index] != '\0' && bffr[index] != '\n')
+		if (map->line == (i - 1) && map->column == j)
+			plr->w = map;
+		else if (map->line == i && map->column == (j - 1))
+			plr->a = map;
+		else if (map->line == i && map->column == (j + 1))
+			plr->d = map;
+		else if (map->line == (i + 1) && map->column == j)
+			plr->s = map;
+		map = map -> next;
+	}
+}
+
+void	make_player(t_list *mp_to_p, t_player *plr)
+{
+	t_list	*map;
+
+	map = mp_to_p;
+	while (map)
+	{
+		if (map->content == 'P')
 		{
-			if (bffr[index] == 'C')
-			{
-				temp = ft_cllctnew(bffr[index], line, column);
-				ft_cllctadd_back(collect, temp);
-			}
-			index++;
-			column++;
+			plr->p = map;
+			break ;
 		}
-		index++;
-		column = 0;
-		line++;
+		map = map->next;
 	}
+	def_p_around(plr->p->line, plr->p->column, mp_to_p, plr);
 }
 
-int	file_list(char *bffr, t_list **map)
+void	cllct_work(t_cllct **cllct, int ln, int cl)
 {
-	int		line;
-	int		column;
-	int		idx;
-	t_list	*tmp;
+	t_cllct	*coll;
 
-	idx = 0;
-	column = 0;
-	line = 0;
-	while (bffr[idx] != '\0')
+	coll = *cllct;
+	while (coll)
 	{
-		while (bffr[idx] != '\0' && bffr[idx] != '\n')
-		{
-			if (check_char(bffr[idx]) == 0)
-				return (0);
-			tmp = ft_lstnew(bffr[idx], line, column);
-			ft_lstadd_back(map, tmp);
-			idx++;
-			column++;
-		}
-		if (bffr[idx] == '\n')
-			idx++;
-		column = 0;
-		line++;
+		if (coll->line == ln && coll->column == cl)
+			coll->active = 0;
+		coll = coll->next;
 	}
-	return (1);
 }
 
-int	read_map(int fd, char *buf)
+void	plr_remake(t_game *gm, char move)
 {
-	size_t	bytes_read;
+	t_list	*map;
 
-	bytes_read = 0;
-	bytes_read = read(fd, buf, BUFFERSIZE);
-	buf[bytes_read + 1] = '\0';
-	if (bytes_read < 15 || bytes_read > 6914)
-		return (write (2, "Error!\nMap Is Too Small or Too Big to Render!\n",
-				46), 0);
-	return (0);
-}
-
-int	ft_game(t_game *game, char *file)
-{
-	static char	buf[BUFFERSIZE];
-	size_t		fd;
-
-	fd = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 1)
-		return (write (2, "Error!\nSomething Wrong with File!\n", 34), 0);
-	if (read_map(fd, buf) == 1)
-		return (0);
-	close(fd);
-	if (validations_lines(game, buf) == 1)
-	{
-		if (file_list(buf, &game->map) == 0)
-			return (0);
-		file_list(buf, &game->check);
-		file_to_cllct(buf, &game->cllct);
-		if (start_items(game) == 0)
-			return (0);
-		mlx_key_hook(game->connect_mlx, &control_hooks, &game->connect_mlx);
-		mlx_loop(game->connect_mlx);
-	}
-	else
-		return (0);
-	return (1);
+	map = gm->map;
+	gm->plr.key = move;
+	if (move == 'w' && gm->plr.w->content != '1')
+		gm->plr.p = gm->plr.w;
+	else if (move == 's' && gm->plr.s->content != '1')
+		gm->plr.p = gm->plr.s;
+	else if (move == 'd' && gm->plr.d->content != '1')
+		gm->plr.p = gm->plr.d;
+	else if (move == 'a' && gm->plr.a->content != '1')
+		gm->plr.p = gm->plr.a;
+	print_moves(gm->connect_mlx, &gm->sizes, &gm->items.counter);
+	if (plr_exit(gm) == 0)
+		mlx_close_window(gm->connect_mlx);
 }
